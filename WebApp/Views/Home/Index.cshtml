@@ -1,0 +1,21 @@
+﻿@model List<Customer>
+
+@section title {
+    <h1>Welcome to Home Page</h1>
+}
+
+<!-- 顯示所有客人 -->
+<div class="container">
+    <h3>Select a Customer:</h3>
+    <div class="row">
+        @foreach (var customer in Model)
+        {
+            <div class="col-3">
+                <button class="btn btn-primary" style="width: 100%;" 
+                        asp-controller="Home" asp-action="Details" asp-route-id="@customer.Id">
+                    @customer.Name
+                </button>
+            </div>
+        }
+    </div>
+</div>
