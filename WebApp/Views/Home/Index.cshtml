@@ -1,21 +1,28 @@
 ﻿@model List<Customer>
 
 @section title {
-    <h1>Welcome to Home Page</h1>
+    <h1>Welcome 王東森 (Home Page)</h1>
 }
 
 <!-- 顯示所有客人 -->
-<div class="container">
+<form method="post" asp-controller="categories" asp-action="index">
     <h3>Select a Customer:</h3>
     <div class="row">
         @foreach (var customer in Model)
         {
-            <div class="col-3">
-                <button class="btn btn-primary" style="width: 100%;" 
-                        asp-controller="Home" asp-action="Details" asp-route-id="@customer.Id">
+            <div class="col-3 mb-4">
+                <!-- 第一個按鈕顯示客戶名稱 -->
+                <button class="btn btn-primary" style="width: 100%;"
+                        asp-controller="categories" asp-action="index" asp-route-customerid="@customer.Id">
                     @customer.Name
+                </button>
+
+                <!-- 第二個按鈕顯示 "Customer Information" 並放在第一個按鈕下方 -->
+                <button class="btn btn-secondary mt-2" style="width: 100%;"
+                        asp-controller="customer" asp-action="index" asp-route-id="@customer.Id">
+                    Customer Information
                 </button>
             </div>
         }
     </div>
-</div>
+</form>

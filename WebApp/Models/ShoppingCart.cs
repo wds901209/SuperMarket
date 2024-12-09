@@ -1,23 +1,17 @@
-﻿using System.Collections.Generic;
-
-namespace WebApp.Models
+﻿public class ShoppingCart
 {
-    public class ShoppingCart
-    {
-        public int Id { get; set; } // 購物車 ID
-        public int CustomerId { get; set; } // 關聯客戶 ID
-        public List<ShoppingCartItem> Items { get; set; } = new List<ShoppingCartItem>(); // 購物車內商品列表
+    public int CustomerId { get; set; } // 顧客ID
+    public List<ShoppingCartItem> Items { get; set; } = new List<ShoppingCartItem>(); // 購物車內的商品列表
 
-        public decimal TotalAmount => CalculateTotal(); // 自動計算總金額
+    // 自動計算總金額
+    public decimal TotalAmount => Items.Sum(item => item.Price * item.Quantity);
+}
 
-        private decimal CalculateTotal()
-        {
-            decimal total = 0;
-            foreach (var item in Items)
-            {
-                total += item.ProductPrice * item.Quantity;
-            }
-            return total;
-        }
-    }
+// 購物車內的商品物件(最底層)
+public class ShoppingCartItem
+{
+    public int CategoryId { get; set; }
+    public required string Name { get; set; }
+    public decimal Price { get; set; }
+    public int Quantity { get; set; } // 商品數量
 }

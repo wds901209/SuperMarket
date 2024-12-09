@@ -1,0 +1,36 @@
+﻿@model ShoppingCart
+
+@section title {
+    <h2 class="text-center my-4">Your Shopping Cart</h2>
+}
+
+<div class="container">
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>@(item.Price * item.Quantity).ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="text-end mt-3">
+        <h3><strong>Total Amount:</strong> <span class="text-success">@Model.TotalAmount.ToString("C")</span></h3>
+    </div>
+    <div>
+        <a class="btn btn-primary" asp-controller="invoice" asp-action="checkout">CheckOut</a>
+    </div>
+</div>

@@ -5,9 +5,9 @@
     {
         private static List<Category> _categories = new List<Category>()
         {
-            new Category {CategoryId = 1, Name = "Beverage", Description = "Beverage"},
-            new Category {CategoryId = 2, Name = "Bakery", Description = "Bakery" },
-            new Category {CategoryId = 3, Name = "Meat", Description = "Meat" }
+            new Category {CategoryId = 1, Name = "Beverage", Description = "好喝Bevarage", Price = 25},
+            new Category {CategoryId = 2, Name = "Bakery", Description = "好吃Bakery", Price = 50},
+            new Category {CategoryId = 3, Name = "Meat", Description = "好讚Meat", Price = 85 }
         };
 
         // Create資料，並自動分配唯一的 CategoryId
@@ -31,6 +31,7 @@
                     CategoryId = category.CategoryId,
                     Name = category.Name,
                     Description = category.Description,
+                    Price = category.Price
                 };              
             }
             return null;
@@ -47,6 +48,7 @@
             {
                 categoryToUpdate.Name = category.Name;
                 categoryToUpdate.Description = category.Description;
+                categoryToUpdate.Price = category.Price;
             }
         }
 

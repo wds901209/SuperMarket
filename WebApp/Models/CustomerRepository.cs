@@ -6,7 +6,6 @@ namespace WebApp.Models
 {
     public class CustomersRepository
     {
-
         private static List<Customer> _customers = new List<Customer>
         {
             new Customer { Id = 1, Name = "Andy", Address = "新竹市東區", Phone = "0981123456", Email = "andy@gmail.com" },
@@ -17,20 +16,30 @@ namespace WebApp.Models
 
         public static Customer GetCustomerById(int id)
         {
-            var customer = _customers.FirstOrDefault(x => x.Id == id);
-            if(customer != null)
+            if (id <= 0)
             {
-                return new Customer
-                {
-                    Id = customer.Id,
-                    Name = customer.Name,
-                    Address = customer.Address,
-                    Phone = customer.Phone,
-                    Email = customer.Email,                 
-                };
+                return null; // 或者拋出一個自定義的例外
             }
-            return null;
+
+            // 查詢客戶
+            return _customers.FirstOrDefault(x => x.Id == id);
         }
+
+        public static string GetCustomerNameById(int id)
+        {
+            // 檢查 ID 是否有效
+            if (id <= 0)
+            {
+                return null; // 或者你可以選擇返回一個預設值，比如 "Unknown"
+            }
+
+            // 查詢並返回客戶名稱
+            var customer = _customers.FirstOrDefault(x => x.Id == id);
+
+            // 如果找不到該客戶，返回預設值
+            return customer?.CustomerName ?? "Unknown";
+        }
+
 
         public void Add(Customer customer)
         {

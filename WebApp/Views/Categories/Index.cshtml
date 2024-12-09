@@ -1,50 +1,70 @@
 ﻿@model List<Category>
-@section title{
-    <h3>Categories</h3>
+
+@section title {
+    <h3>Customer : @ViewBag.CustomerName</h3>
 }
 
-@if(Model != null && Model.Count() > 0)
+@if (Model != null && Model.Count() > 0)
 {
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Price</th>
                 <th></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach(var category in Model)
+            @foreach (var category in Model)
             {
                 <tr>
                     <td>@category.Name</td>
                     <td>@category.Description</td>
+                    <td>@category.Price</td>
                     <td>
-                        <a class="btn btn-link" asp-controller="categories" asp-action="edit" asp-route-id="@category.CategoryId">Edit</a>
+                        <a class="btn btn-link"
+                           asp-controller="categories"
+                           asp-action="edit"
+                           asp-route-id="@category.CategoryId">Edit</a>
                     </td>
                     <td>
-                        <a class="btn btn-link" asp-controller="categories" asp-action="delete" asp-route-categoryiId="@category.CategoryId" onclick="return confirmDelete()">Delete</a>
+                        <a class="btn btn-link"
+                           asp-controller="categories"
+                           asp-action="delete"
+                           asp-route-categoryiId="@category.CategoryId"
+                           onclick="return confirmDelete()">Delete</a>
+                    </td>
+                    <td>
+                        <form method="post" asp-controller="shoppingcart" asp-action="AddToShoppingCart" asp-route-categoryId="@category.CategoryId" class="add-to-cart-form" style="display: inline;">
+                            <input type="hidden" name="customerId" value="@ViewBag.CustomerId" />
+                            <input type="hidden" name="categoryId" value="@category.CategoryId" />
+                            <button type="submit" class="btn btn-link" onclick="return confirmAdd()">Add To Shopping Cart</button>
+                        </form>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-    <br/>
-    <a class="btn btn-primary" asp-controller="categories" asp-action="add">Add</a>
+    <br />
+    <a class="btn btn-primary" asp-controller="shoppingcart" asp-action="shoppingcart" asp-route-customerId="@ViewBag.CustomerId">ShoppingCart</a>
 }
 
-@section Scripts{
+@section Scripts {
     <script>
         function confirmDelete(){
-            return confirm("are sure?");
+            return confirm("Are you sure?");
+        }
+        function confirmAdd(){
+            return confirm("+");
         }
     </script>
 }
+
 
 <!--
 筆記
 1.addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
     可以讓你直接指定要哪個路徑，如line25
 -->
-
