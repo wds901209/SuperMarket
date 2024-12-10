@@ -9,6 +9,7 @@
     <p><strong>Customer ID:</strong> @Model.CustomerId</p>
     @*<p><strong>Customer Name:</strong> @ViewBag.CustomerName</p>*@
     <p><strong>Date:</strong> @Model.InvoiceDate.ToString("yyyy-MM-dd HH:mm")</p>
+    <p><strong>Payment Due Date:</strong> @Model.InvoiceDate.AddDays(7).ToString("yyyy-MM-dd HH:mm")</p>
 
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
